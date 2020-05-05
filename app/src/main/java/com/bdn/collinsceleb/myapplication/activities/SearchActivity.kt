@@ -36,20 +36,23 @@ class SearchActivity : AppCompatActivity() {
         val  searchItem = menu!!.findItem(R.id.action_search)
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val  searchView = searchItem!!.actionView as SearchView
+        val  searchView = searchItem!!.actionView as androidx.appcompat.widget.SearchView
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-        searchView.isIconifiedByDefault = false
+        searchView.setIconifiedByDefault(false)
         searchView.requestFocus()
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                println("updated search")
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })
+//        searchView.setOnQueryTextFocusChangeListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
+//
+//        })
+////        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+////            override fun onQueryTextSubmit(query: String?): Boolean {
+////                println("updated search")
+////                return false
+////            }
+////
+////            override fun onQueryTextChange(newText: String?): Boolean {
+////                return false
+////            }
+////        })
 
         return super.onCreateOptionsMenu(menu)
     }
