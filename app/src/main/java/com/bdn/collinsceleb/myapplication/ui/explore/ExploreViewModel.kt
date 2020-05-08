@@ -3,6 +3,7 @@ package com.bdn.collinsceleb.myapplication.ui.explore
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.bdn.collinsceleb.myapplication.R
 
 class ExploreViewModel : ViewModel() {
 

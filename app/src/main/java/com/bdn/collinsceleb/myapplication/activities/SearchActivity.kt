@@ -7,12 +7,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.Window
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bdn.collinsceleb.myapplication.R
+import com.bdn.collinsceleb.myapplication.adapters.ArticleListItemRecyclerAdapter
+import com.bdn.collinsceleb.myapplication.providers.ArticleDataProvider
 import kotlinx.android.synthetic.main.activity_search.*
 
 class SearchActivity : AppCompatActivity() {
+
+    private val articleDataProvider: ArticleDataProvider = ArticleDataProvider()
+    private var articleListItemRecyclerAdapter: ArticleListItemRecyclerAdapter = ArticleListItemRecyclerAdapter()
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +25,9 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDefaultDisplayHomeAsUpEnabled(true)
+
+        search_result_recycler.layoutManager = LinearLayoutManager(this)
+        search_result_recycler.adapter = articleListItemRecyclerAdapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -40,20 +48,24 @@ class SearchActivity : AppCompatActivity() {
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.setIconifiedByDefault(false)
         searchView.requestFocus()
-//        searchView.setOnQueryTextFocusChangeListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener{
-//
-//        })
-////        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-////            override fun onQueryTextSubmit(query: String?): Boolean {
-////                println("updated search")
-////                return false
-////            }
-////
-////            override fun onQueryTextChange(newText: String?): Boolean {
-////                return false
-////            }
-////        })
+       searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+           override fun onQueryTextSubmit(query: String?): Boolean {
+               if (query != null) {
+                   articleDataProvider.getSearch(query, 0, 20) { wikiResult ->
+                       articleListItemRecyclerAdapter.currentResults.clear()
+                       articleListItemRecyclerAdapter.currentResults.addAll(wikiResult.query!!.pages)
+                       runOnUiThread { articleListItemRecyclerAdapter.notifyDataSetChanged() }
+                   }
+                   println("updated search")
+               }
+               return false
+           }
 
+           override fun onQueryTextChange(newText: String?): Boolean {
+              return false
+           }
+
+       })
         return super.onCreateOptionsMenu(menu)
     }
 }

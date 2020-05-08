@@ -20,13 +20,15 @@ object Urls {
     }
     fun getRandomUrl(take: Int) : String {
         return BaseUrl + "?action=query" +
-                "&formatversion=2" +
-                "&generator=random" +
-                "&grnlimit=$take" +
-                "&prop=pageimages|info" +
-                "&pithumbsize=200" +
                 "&format=json" +
+                "&generator=random" +
+                "&grnnamespace=0" +
+                "&prop=pageimages|info" +
+                "&grnlimit=$take" +
                 "&inprop=url" +
-                "grnnamespace=0"
+                "&pithumbsize=200"
+
+
+
     }
 }

@@ -44,5 +44,14 @@ dependencies {
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Fuel Library for HTTP Request
+    implementation 'com.github.kittinunf.fuel:fuel:2.2.2' // for JVM / base support
+    implementation 'com.github.kittinunf.fuel:fuel-android:2.2.2' // for android support
+    implementation 'com.github.kittinunf.fuel:fuel-gson:2.2.2' // for Gson support
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
 apply plugin: "androidx.navigation.safeargs.kotlin"
