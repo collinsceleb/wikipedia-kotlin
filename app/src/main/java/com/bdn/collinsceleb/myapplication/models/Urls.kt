@@ -20,6 +20,7 @@ object Urls {
     }
     fun getRandomUrl(take: Int) : String {
         return BaseUrl + "?action=query" +
+                "&formatversion=2" +
                 "&format=json" +
                 "&generator=random" +
                 "&grnnamespace=0" +

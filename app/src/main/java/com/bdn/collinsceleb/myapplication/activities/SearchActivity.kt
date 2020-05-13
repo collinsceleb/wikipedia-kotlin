@@ -49,15 +49,13 @@ class SearchActivity : AppCompatActivity() {
         searchView.setIconifiedByDefault(false)
         searchView.requestFocus()
        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-           override fun onQueryTextSubmit(query: String?): Boolean {
-               if (query != null) {
-                   articleDataProvider.getSearch(query, 0, 20) { wikiResult ->
-                       articleListItemRecyclerAdapter.currentResults.clear()
-                       articleListItemRecyclerAdapter.currentResults.addAll(wikiResult.query!!.pages)
-                       runOnUiThread { articleListItemRecyclerAdapter.notifyDataSetChanged() }
-                   }
-                   println("updated search")
+           override fun onQueryTextSubmit(query: String): Boolean {
+               articleDataProvider.getSearch(query, 0, 20) { wikiResult ->
+                   articleListItemRecyclerAdapter.currentResults.clear()
+                   articleListItemRecyclerAdapter.currentResults.addAll(wikiResult.query!!.pages)
+                   runOnUiThread { articleListItemRecyclerAdapter.notifyDataSetChanged() }
                }
+               println("updated search")
                return false
            }
 
